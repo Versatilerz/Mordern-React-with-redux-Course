@@ -4,7 +4,7 @@ const App = () => {
   const items: AccordionSection[] = [
     {
       id: "2lkya",
-      label: "Can i use react on a project?",
+      label: "Can i use React on a project?",
       content:
         "You can use react on any project you want. You can use react on any project you want. You can use react on any project you want. You can use react on any project you want.",
     },
