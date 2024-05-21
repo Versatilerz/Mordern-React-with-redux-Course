@@ -15,11 +15,14 @@ const Accordion: React.FC<{ items: AccordionProps }> = ({ items }) => {
   // if you want to define the event handler outside of the scoped mapping function we can execute the handleclick and pass trough the index
   // because we CALL the handleclick we can pass a value trough, otherwise it would just be the event object
   const handleClick = (index: number) => {
-    if (index === expandedIndex) {
-      setExpandedIndex(-1);
-    } else {
-      setExpandedIndex(index);
-    }
+    // only use this workaround if your stateupdate depends on your prevState (most often when updates to state happen REALLY fast)
+    setExpandedIndex((currentExpendedIndex) => {
+      if (index === currentExpendedIndex) {
+        return -1;
+      } else {
+        return index;
+      }
+    });
   };
 
   const renderedItems = items.map((item, index) => {
