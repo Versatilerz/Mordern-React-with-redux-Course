@@ -9,8 +9,19 @@ export type DropdownProps = Options[];
 const Dropdown: React.FC<{ options: DropdownProps }> = ({ options }) => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const handleToggle = () => {};
+  const handleToggle = () => {
+    setIsOpen((currentIsOpen) => !currentIsOpen);
+  };
 
-  return <div></div>;
+  const renderedOptions = options.map((option) => {
+    return <div key={option.value}>{option.label}</div>;
+  });
+
+  return (
+    <div>
+      <div onClick={handleToggle}>Select...</div>
+      {isOpen && <div>{renderedOptions}</div>}
+    </div>
+  );
 };
 export default Dropdown;
