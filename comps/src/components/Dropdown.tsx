@@ -8,9 +8,9 @@ export type DropdownProps = Options[];
 
 const Dropdown: React.FC<{
   options: DropdownProps;
-  onSelect: (option: Options) => void;
-  selection: Options;
-}> = ({ options, onSelect, selection }) => {
+  onChange: (option: Options) => void;
+  value: Options | undefined;
+}> = ({ options, onChange, value }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleToggle = () => {
@@ -19,7 +19,7 @@ const Dropdown: React.FC<{
 
   const handleOptionClick = (option: Options) => {
     setIsOpen(false);
-    onSelect(option);
+    onChange(option);
   };
 
   const renderedOptions = options.map((option) => {
@@ -34,7 +34,7 @@ const Dropdown: React.FC<{
 
   return (
     <div>
-      <div onClick={handleToggle}>{selection?.label || "Select..."}</div>
+      <div onClick={handleToggle}>{value?.label ?? "Select..."}</div>
       {isOpen && <div>{renderedOptions}</div>}
     </div>
   );
