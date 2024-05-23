@@ -8,7 +8,6 @@ export type Image = {
 };
 
 const Imageshow: React.FC<{ image: Image }> = ({ image }) => {
-  console.log(image.alt_description);
   return (
     <div>
       <img src={image.urls.small} alt={image.alt_description}></img>

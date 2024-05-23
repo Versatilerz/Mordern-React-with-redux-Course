@@ -1,20 +1,16 @@
-import { useState } from "react";
-import Dropdown, { Options } from "./components/Dropdown";
+import AccordionPage from "./pages/AccordionPage";
+import ButtonPage from "./pages/ButtonPage";
+import DropDownPage from "./pages/DropdownPage";
 
 const App = () => {
-  const [selected, setSelected] = useState<Options>();
-  const options = [
-    { label: "Red", value: "red" },
-    { label: "Green", value: "Green" },
-    { label: "Blue", value: "Blue" },
-  ];
-
-  const handleSelect = (option: Options) => {
-    setSelected(option);
-  };
-
   return (
-    <Dropdown options={options} value={selected} onChange={handleSelect} />
+    <div>
+      <AccordionPage />
+      <div className=" my-10 w-2/4 h-1 bg-gray-300"></div>
+      <ButtonPage />
+      <div className="my-10 w-2/4 h-1 bg-gray-300"></div>
+      <DropDownPage />
+    </div>
   );
 };
 

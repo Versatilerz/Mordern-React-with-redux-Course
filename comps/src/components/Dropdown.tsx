@@ -19,7 +19,6 @@ const Dropdown: React.FC<{
 
   useEffect(() => {
     const handler = (event: MouseEvent) => {
-      console.log(divElement.current);
       const target = event.target as Node | null;
 
       if (!divElement.current?.contains(target)) {
