@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { GoChevronDown } from "react-icons/go";
 import { GoChevronUp } from "react-icons/go";
 import Panel from "./Panel";
@@ -15,6 +15,18 @@ const Dropdown: React.FC<{
   value: Options | undefined;
 }> = ({ options, onChange, value }) => {
   const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {
+    const handler = (event: MouseEvent) => {
+      console.log(event.target);
+    };
+
+    document.addEventListener("click", handler, true);
+
+    return () => {
+      document.removeEventListener("click", handler);
+    };
+  }, []);
 
   const handleToggle = () => {
     setIsOpen((currentIsOpen) => !currentIsOpen);
@@ -52,3 +64,18 @@ const Dropdown: React.FC<{
   );
 };
 export default Dropdown;
+
+// javascript way of looking for clicks outside the dropdown, does not work because it looks at the FIRST div with that className.. not at the first it has.
+// const dropdown = document.querySelector(".w-48");
+// const handleClick = (event: MouseEvent) => {
+//   console.log(event.target);
+//   const target = event.target as Node | null;
+
+//   if (dropdown?.contains(target)) {
+//     console.log("Inside dropdown");
+//   } else {
+//     console.log("Outside dropdown");
+//   }
+// };
+
+// document.addEventListener("click", handleClick, true);
