@@ -1,6 +1,14 @@
 import { ReactNode, createContext, useEffect, useState } from "react";
 
-const NavigationContext = createContext({});
+type NavigationInit = {
+  navigate: (to: string) => void;
+  currentPath: string;
+};
+
+const NavigationContext = createContext<NavigationInit>({
+  navigate: () => {},
+  currentPath: "/",
+});
 
 const NavigationProvider: React.FC<{ children: ReactNode }> = ({
   children,
