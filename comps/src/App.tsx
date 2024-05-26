@@ -7,7 +7,7 @@ import ModalPage from "./pages/ModalPage";
 
 const App = () => {
   return (
-    <div className="container mx auto grid grid-cols-4 gap-4 mt-4">
+    <div className="container mx auto grid grid-cols-5 gap-4 mt-4">
       <Sidebar />
       <div className="col-span-2">
         <Route path="/accordion">
