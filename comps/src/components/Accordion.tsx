@@ -48,6 +48,6 @@ const Accordion: React.FC<{ items: AccordionProps }> = ({ items }) => {
     );
   });
 
-  return <div className="border-x border-t rounded w-1/3">{renderedItems}</div>;
+  return <div className="border-x border-t rounded">{renderedItems}</div>;
 };
 export default Accordion;
