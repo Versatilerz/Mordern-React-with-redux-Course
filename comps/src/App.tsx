@@ -15,7 +15,7 @@ const App = () => {
         <Route path="/">
           <DropDownPage />
         </Route>
-        <Route path="/button">
+        <Route path="/buttons">
           <ButtonPage />
         </Route>
       </div>
