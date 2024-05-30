@@ -12,7 +12,7 @@ export type TableConfig = {
 const Table: React.FC<{
   data: TableProps;
   config: TableConfig;
-  keyFn: (fruit: any) => any;
+  keyFn: any;
 }> = ({ data, config, keyFn }) => {
   const renderedHeaders = config.map((column) => {
     return <th key={column.label}>{column.label}</th>;
