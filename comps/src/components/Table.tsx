@@ -9,10 +9,11 @@ export type TableConfig = {
   render: any;
 }[];
 
-const Table: React.FC<{ data: TableProps; config: TableConfig }> = ({
-  data,
-  config,
-}) => {
+const Table: React.FC<{
+  data: TableProps;
+  config: TableConfig;
+  keyFn: (fruit: any) => any;
+}> = ({ data, config, keyFn }) => {
   const renderedHeaders = config.map((column) => {
     return <th key={column.label}>{column.label}</th>;
   });
@@ -27,7 +28,7 @@ const Table: React.FC<{ data: TableProps; config: TableConfig }> = ({
     });
 
     return (
-      <tr className="border-b" key={row.name}>
+      <tr className="border-b" key={keyFn(row)}>
         {renderedCells}
       </tr>
     );
