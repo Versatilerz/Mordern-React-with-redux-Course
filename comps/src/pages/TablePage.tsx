@@ -1,4 +1,4 @@
-import Table from "../components/Table";
+import Table, { TableProps } from "../components/Table";
 
 const TablePage = () => {
   const data = [
@@ -11,14 +11,21 @@ const TablePage = () => {
   const config = [
     {
       label: "Name",
+      render: (fruit: any) => fruit.name,
     },
     {
       label: "Color",
+      render: (fruit: any) => <div className={`p-2 m-2 ${fruit.color}`}></div>,
     },
     {
       label: "Score",
+      render: (fruit: any) => fruit.score,
     },
   ];
+
+  const keyFn = (fruit: any) => {
+    return fruit.name;
+  };
 
   return (
     <div>

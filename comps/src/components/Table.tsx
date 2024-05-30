@@ -1,11 +1,12 @@
-type TableProps = {
+export type TableProps = {
   name: string;
   color: string;
   score: number;
 }[];
 
-type TableConfig = {
+export type TableConfig = {
   label: string;
+  render: any;
 }[];
 
 const Table: React.FC<{ data: TableProps; config: TableConfig }> = ({
@@ -16,14 +17,18 @@ const Table: React.FC<{ data: TableProps; config: TableConfig }> = ({
     return <th key={column.label}>{column.label}</th>;
   });
 
-  const renderedRows = data.map((fruit) => {
-    return (
-      <tr className="border-b" key={fruit.name}>
-        <td className="p-3">{fruit.name}</td>
-        <td className="p-3">
-          <div className={`p-3 m-2 ${fruit.color}`}></div>
+  const renderedRows = data.map((row) => {
+    const renderedCells = config.map((column) => {
+      return (
+        <td className="p-2" key={column.label}>
+          {column.render(row)}
         </td>
-        <td className="p-3">{fruit.score}</td>
+      );
+    });
+
+    return (
+      <tr className="border-b" key={row.name}>
+        {renderedCells}
       </tr>
     );
   });
