@@ -72,12 +72,16 @@ export default Table;
 // };
 
 // // filter object string or number
+// const sortOrder = "asc";
 // data.sort((a, b) => {
 //   const valueA = getSortValue(a);
 //   const valueB = getSortValue(b);
+
+// const reverseOrder = sortORder === "asc" ? 1 : -1;
+
 //   if (typeof valueA === "string") {
-//     return valueA.localeCompare(valueB);
+//     return valueA.localeCompare(valueB) * reverseOrder;
 //   } else {
-//     return valueA - valueB;
+//     return (valueA - valueB) * reverseOrder;
 //   }
 // });

@@ -1,4 +1,4 @@
-import Table, { TableProps } from "../components/Table";
+import Table from "../components/Table";
 
 const TablePage = () => {
   const data = [
