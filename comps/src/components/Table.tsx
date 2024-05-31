@@ -1,3 +1,5 @@
+import { Fragment } from "react/jsx-runtime";
+
 export type TableProps = {
   name: string;
   color: string;
@@ -7,6 +9,7 @@ export type TableProps = {
 export type TableConfig = {
   label: string;
   render: any;
+  header?: any;
 }[];
 
 const Table: React.FC<{
@@ -15,6 +18,9 @@ const Table: React.FC<{
   keyFn: any;
 }> = ({ data, config, keyFn }) => {
   const renderedHeaders = config.map((column) => {
+    if (column.header) {
+      return <Fragment key={column.label}>{column.header()}</Fragment>;
+    }
     return <th key={column.label}>{column.label}</th>;
   });
 
@@ -37,8 +43,7 @@ const Table: React.FC<{
   return (
     <table className="table-auto border-spacing-2">
       <thead>
-        <tr className="border-b-2"></tr>
-        {renderedHeaders}
+        <tr className="border-b-2">{renderedHeaders}</tr>
       </thead>
       <tbody>{renderedRows}</tbody>
     </table>
