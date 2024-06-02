@@ -9,9 +9,9 @@ type ReducerState = {
 };
 
 enum Action {
-  Increment = "increment-count",
-  Decrement = "decrement-count",
-  AddValue = "value-to-add",
+  INCREMENT_COUNT = "INCREMENT_COUNT-count",
+  DECREMENT_COUNT = "DECREMENT_COUNT-count",
+  VALUE_TO_ADD = "value-to-add",
 }
 
 type ReducerAction = {
@@ -20,21 +20,21 @@ type ReducerAction = {
 };
 
 const reducer = (state: ReducerState, action: ReducerAction) => {
-  if (action.type === Action.Increment) {
+  if (action.type === Action.INCREMENT_COUNT) {
     return {
       ...state,
       counter: state.counter + 1,
     };
   }
 
-  if (action.type === Action.Decrement) {
+  if (action.type === Action.DECREMENT_COUNT) {
     return {
       ...state,
       counter: state.counter - 1,
     };
   }
 
-  if (action.type === Action.AddValue) {
+  if (action.type === Action.VALUE_TO_ADD) {
     return {
       ...state,
       valueToAdd: action.payload,
@@ -43,7 +43,7 @@ const reducer = (state: ReducerState, action: ReducerAction) => {
 };
 
 const CounterPage: React.FC<{ initCount: number }> = ({ initCount }) => {
-  // const { counter, increment } = useCounter({ initCount });
+  // const { counter, INCREMENT_COUNT } = useCounter({ initCount });
   // const [counter, setCounter] = useState(initCount);
   // const [valueToAdd, setValueToAdd] = useState(0);
   const [state, dispatch] = useReducer(reducer, {
@@ -51,24 +51,24 @@ const CounterPage: React.FC<{ initCount: number }> = ({ initCount }) => {
     valueToAdd: 0,
   });
 
-  const increment = () => {
+  const INCREMENT_COUNT = () => {
     // setCounter(counter + 1);
     dispatch({
-      type: Action.Increment,
+      type: Action.INCREMENT_COUNT,
     });
   };
 
-  const decrement = () => {
+  const DECREMENT_COUNT = () => {
     // setCounter(counter - 1);
     dispatch({
-      type: Action.Decrement,
+      type: Action.DECREMENT_COUNT,
     });
   };
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const value = parseInt(event.target.value);
     dispatch({
-      type: Action.AddValue,
+      type: Action.VALUE_TO_ADD,
       payload: value,
     });
   };
@@ -84,8 +84,8 @@ const CounterPage: React.FC<{ initCount: number }> = ({ initCount }) => {
     <Panel className="m-3">
       <h1 className="text-lg">Count is {state.counter}</h1>
       <div className="flex flex-row">
-        <Button onClick={increment}>Increment</Button>
-        <Button onClick={decrement}>Decrement</Button>
+        <Button onClick={INCREMENT_COUNT}>INCREMENT_COUNT</Button>
+        <Button onClick={DECREMENT_COUNT}>DECREMENT_COUNT</Button>
       </div>
 
       <form onSubmit={handleSubmit}>
