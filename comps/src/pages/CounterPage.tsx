@@ -8,27 +8,33 @@ type ReducerState = {
   valueToAdd?: number;
 };
 
+enum Action {
+  Increment = "increment-count",
+  Decrement = "decrement-count",
+  AddValue = "value-to-add",
+}
+
 type ReducerAction = {
-  type: string;
+  type: Action;
   payload?: number | undefined;
 };
 
 const reducer = (state: ReducerState, action: ReducerAction) => {
-  if (action.type === "increment-count") {
+  if (action.type === Action.Increment) {
     return {
       ...state,
       counter: state.counter + 1,
     };
   }
 
-  if (action.type === "decrement-count") {
+  if (action.type === Action.Decrement) {
     return {
       ...state,
       counter: state.counter - 1,
     };
   }
 
-  if (action.type === "value-to-add") {
+  if (action.type === Action.AddValue) {
     return {
       ...state,
       valueToAdd: action.payload,
@@ -48,21 +54,21 @@ const CounterPage: React.FC<{ initCount: number }> = ({ initCount }) => {
   const increment = () => {
     // setCounter(counter + 1);
     dispatch({
-      type: "increment-count",
+      type: Action.Increment,
     });
   };
 
   const decrement = () => {
     // setCounter(counter - 1);
     dispatch({
-      type: "decrement-count",
+      type: Action.Decrement,
     });
   };
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const value = parseInt(event.target.value);
     dispatch({
-      type: "value-to-add",
+      type: Action.AddValue,
       payload: value,
     });
   };
