@@ -20,26 +20,25 @@ type ReducerAction = {
 };
 
 const reducer = (state: ReducerState, action: ReducerAction) => {
-  if (action.type === Action.INCREMENT_COUNT) {
-    return {
-      ...state,
-      counter: state.counter + 1,
-    };
+  switch (action.type) {
+    case Action.INCREMENT_COUNT:
+      return {
+        ...state,
+        counter: state.counter + 1,
+      };
+    case Action.DECREMENT_COUNT:
+      return {
+        ...state,
+        counter: state.counter - 1,
+      };
+    case Action.VALUE_TO_ADD:
+      return {
+        ...state,
+        valueToAdd: action.payload,
+      };
+    default:
+      return state;
   }
-
-  if (action.type === Action.DECREMENT_COUNT) {
-    return {
-      ...state,
-      counter: state.counter - 1,
-    };
-  }
-
-  if (action.type === Action.VALUE_TO_ADD) {
-    return {
-      ...state,
-      valueToAdd: action.payload,
-    };
-  } else return state;
 };
 
 const CounterPage: React.FC<{ initCount: number }> = ({ initCount }) => {
