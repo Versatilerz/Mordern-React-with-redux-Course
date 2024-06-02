@@ -1,18 +1,39 @@
-import { ChangeEvent, useReducer, useState } from "react";
+import { ChangeEvent, useReducer } from "react";
 import Button from "../components/Button";
 import Panel from "../components/Panel";
 // import useCounter from "../hooks/use-counter";
 
 type ReducerState = {
   counter: number;
-  valueToAdd: number;
+  valueToAdd?: number;
 };
 
-const reducer = (state: ReducerState) => {
-  return {
-    ...state,
-    counter: state.counter + 1,
-  };
+type ReducerAction = {
+  type: string;
+  payload?: number | undefined;
+};
+
+const reducer = (state: ReducerState, action: ReducerAction) => {
+  if (action.type === "increment-count") {
+    return {
+      ...state,
+      counter: state.counter + 1,
+    };
+  }
+
+  if (action.type === "decrement-count") {
+    return {
+      ...state,
+      counter: state.counter - 1,
+    };
+  }
+
+  if (action.type === "value-to-add") {
+    return {
+      ...state,
+      valueToAdd: action.payload,
+    };
+  } else return state;
 };
 
 const CounterPage: React.FC<{ initCount: number }> = ({ initCount }) => {
@@ -26,17 +47,24 @@ const CounterPage: React.FC<{ initCount: number }> = ({ initCount }) => {
 
   const increment = () => {
     // setCounter(counter + 1);
-    dispatch();
+    dispatch({
+      type: "increment-count",
+    });
   };
 
   const decrement = () => {
     // setCounter(counter - 1);
+    dispatch({
+      type: "decrement-count",
+    });
   };
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const value = parseInt(event.target.value);
-    console.log(value);
-    // setValueToAdd(value);
+    dispatch({
+      type: "value-to-add",
+      payload: value,
+    });
   };
 
   const handleSubmit = (event: ChangeEvent<HTMLFormElement>) => {
