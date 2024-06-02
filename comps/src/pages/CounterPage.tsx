@@ -9,14 +9,15 @@ type ReducerState = {
 };
 
 enum Action {
-  INCREMENT_COUNT = "INCREMENT_COUNT-count",
-  DECREMENT_COUNT = "DECREMENT_COUNT-count",
-  VALUE_TO_ADD = "value-to-add",
+  INCREMENT_COUNT = "increment_count",
+  DECREMENT_COUNT = "decrement_count",
+  VALUE_TO_ADD = "value_to_add",
+  ADDING_TO_COUNT = "adding_to_count",
 }
 
 type ReducerAction = {
   type: Action;
-  payload?: number | undefined;
+  payload?: number;
 };
 
 const reducer = (state: ReducerState, action: ReducerAction) => {
@@ -36,6 +37,12 @@ const reducer = (state: ReducerState, action: ReducerAction) => {
         ...state,
         valueToAdd: action.payload,
       };
+    case Action.ADDING_TO_COUNT:
+      return {
+        ...state,
+        counter: state.counter + (state.valueToAdd || 0),
+        valueToAdd: 0,
+      };
     default:
       return state;
   }
@@ -43,22 +50,18 @@ const reducer = (state: ReducerState, action: ReducerAction) => {
 
 const CounterPage: React.FC<{ initCount: number }> = ({ initCount }) => {
   // const { counter, INCREMENT_COUNT } = useCounter({ initCount });
-  // const [counter, setCounter] = useState(initCount);
-  // const [valueToAdd, setValueToAdd] = useState(0);
   const [state, dispatch] = useReducer(reducer, {
     counter: initCount,
     valueToAdd: 0,
   });
 
-  const INCREMENT_COUNT = () => {
-    // setCounter(counter + 1);
+  const increment = () => {
     dispatch({
       type: Action.INCREMENT_COUNT,
     });
   };
 
-  const DECREMENT_COUNT = () => {
-    // setCounter(counter - 1);
+  const decrement = () => {
     dispatch({
       type: Action.DECREMENT_COUNT,
     });
@@ -75,16 +78,17 @@ const CounterPage: React.FC<{ initCount: number }> = ({ initCount }) => {
   const handleSubmit = (event: ChangeEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    // setCounter(counter + valueToAdd);
-    // setValueToAdd(0);
+    dispatch({
+      type: Action.ADDING_TO_COUNT,
+    });
   };
 
   return (
     <Panel className="m-3">
       <h1 className="text-lg">Count is {state.counter}</h1>
       <div className="flex flex-row">
-        <Button onClick={INCREMENT_COUNT}>INCREMENT_COUNT</Button>
-        <Button onClick={DECREMENT_COUNT}>DECREMENT_COUNT</Button>
+        <Button onClick={increment}>Increment</Button>
+        <Button onClick={decrement}>Decrement</Button>
       </div>
 
       <form onSubmit={handleSubmit}>
