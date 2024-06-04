@@ -1,13 +1,15 @@
 import { createRandomSong } from "../data";
+import { addSong } from "../store";
+import { useAppDispatch, useAppSelector } from "../store/hooks";
 
-function SongPlaylist() {
+const SongPlaylist = () => {
+  const dispatch = useAppDispatch();
   // To Do:
   // Get list of songs
-  const songPlaylist: string[] = [];
+  const songPlaylist: string[] = useAppSelector((state) => state.songs);
 
   const handleSongAdd = (song: string) => {
-    // To Do:
-    // Add song to list of songs
+    dispatch(addSong(song));
   };
   const handleSongRemove = (song: string) => {
     // To Do:
@@ -44,6 +46,6 @@ function SongPlaylist() {
       <ul>{renderedSongs}</ul>
     </div>
   );
-}
+};
 
 export default SongPlaylist;
