@@ -15,6 +15,9 @@ const songSlice = createSlice({
       const index = state.indexOf(action.payload);
       state.splice(index, 1);
     },
+    resetS(state) {
+      return [];
+    },
   },
 });
 
@@ -25,9 +28,12 @@ const moviesSlice = createSlice({
     addMovie(state, action: PayloadAction<string>) {
       state.push(action.payload);
     },
-    removeMovie(state, action) {
+    removeMovie(state, action: PayloadAction<string>) {
       const index = state.indexOf(action.payload);
       state.splice(index, 1);
+    },
+    reset(state) {
+      return [];
     },
   },
 });
@@ -39,8 +45,8 @@ const store = configureStore({
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
 
-export const { addSong, removeSong } = songSlice.actions;
-export const { addMovie, removeMovie } = moviesSlice.actions;
+export const { addSong, removeSong, resetS } = songSlice.actions;
+export const { addMovie, removeMovie, reset } = moviesSlice.actions;
 export { store };
 
 // const startingState = store.getState();

@@ -4,8 +4,6 @@ import { useAppDispatch, useAppSelector } from "../store/hooks";
 
 const SongPlaylist = () => {
   const dispatch = useAppDispatch();
-  // To Do:
-  // Get list of songs
   const songPlaylist: string[] = useAppSelector((state) => state.songs);
 
   const handleSongAdd = (song: string) => {
