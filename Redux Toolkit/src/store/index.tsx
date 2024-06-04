@@ -1,6 +1,13 @@
-import { PayloadAction, configureStore, createSlice } from "@reduxjs/toolkit";
+import {
+  PayloadAction,
+  configureStore,
+  createSlice,
+  createAction,
+} from "@reduxjs/toolkit";
 
 const initialState: string[] = [];
+
+export const reset = createAction("app/reset");
 
 const songSlice = createSlice({
   name: "song",
@@ -17,7 +24,7 @@ const songSlice = createSlice({
     },
   },
   extraReducers(builder) {
-    builder.addCase(moviesSlice.actions.reset, (state: string[]) => {
+    builder.addCase(reset, () => {
       return [];
     });
   },
@@ -34,9 +41,11 @@ const moviesSlice = createSlice({
       const index = state.indexOf(action.payload);
       state.splice(index, 1);
     },
-    reset(state) {
+  },
+  extraReducers(builder) {
+    builder.addCase(reset, () => {
       return [];
-    },
+    });
   },
 });
 
@@ -48,7 +57,7 @@ export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
 
 export const { addSong, removeSong } = songSlice.actions;
-export const { addMovie, removeMovie, reset } = moviesSlice.actions;
+export const { addMovie, removeMovie } = moviesSlice.actions;
 export { store };
 
 // const startingState = store.getState();
