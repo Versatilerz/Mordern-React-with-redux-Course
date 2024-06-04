@@ -17,7 +17,7 @@ const songSlice = createSlice({
     },
   },
   extraReducers(builder) {
-    builder.addCase("movies/reset", (state: string[]) => {
+    builder.addCase(moviesSlice.actions.reset, (state: string[]) => {
       return [];
     });
   },
