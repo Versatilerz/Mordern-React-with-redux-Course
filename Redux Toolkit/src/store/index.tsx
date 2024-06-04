@@ -1,5 +1,4 @@
 import { PayloadAction, configureStore, createSlice } from "@reduxjs/toolkit";
-import { useDispatch } from "react-redux";
 
 const initialState: string[] = [];
 
@@ -11,8 +10,10 @@ const songSlice = createSlice({
     addSong(state, action: PayloadAction<string>) {
       state.push(action.payload);
     },
-    removeSong(state, action) {
-      //
+    removeSong(state, action: PayloadAction<string>) {
+      //use splice instead of filter for deleting an item from an array (better performance)
+      const index = state.indexOf(action.payload);
+      state.splice(index, 1);
     },
   },
 });
@@ -23,7 +24,7 @@ const store = configureStore({
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
 
-export const { addSong } = songSlice.actions;
+export const { addSong, removeSong } = songSlice.actions;
 export { store };
 
 // const startingState = store.getState();

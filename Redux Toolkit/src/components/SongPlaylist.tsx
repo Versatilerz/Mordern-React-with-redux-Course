@@ -1,5 +1,5 @@
 import { createRandomSong } from "../data";
-import { addSong } from "../store";
+import { addSong, removeSong } from "../store";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
 
 const SongPlaylist = () => {
@@ -12,8 +12,7 @@ const SongPlaylist = () => {
     dispatch(addSong(song));
   };
   const handleSongRemove = (song: string) => {
-    // To Do:
-    // Remove song from list of songs
+    dispatch(removeSong(song));
   };
 
   const renderedSongs = songPlaylist.map((song) => {
