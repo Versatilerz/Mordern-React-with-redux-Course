@@ -1,4 +1,4 @@
-import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createSlice, nanoid } from "@reduxjs/toolkit";
 import { Car } from "./formSlice";
 
 type CarsSliceIS = {
@@ -19,9 +19,13 @@ const CarsSlice = createSlice({
       state.searchTerm = action.payload;
     },
     addCar(state, action: PayloadAction<Car>) {
-      state.cars.push(action.payload);
+      state.cars.push({
+        name: action.payload.name,
+        cost: action.payload.cost,
+        id: nanoid(),
+      });
     },
-    removeCar(state, action: PayloadAction<number>) {
+    removeCar(state, action: PayloadAction<string>) {
       const updated = state.cars.filter((car) => car.id !== action.payload);
       state.cars = updated;
     },

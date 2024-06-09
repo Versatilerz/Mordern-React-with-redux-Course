@@ -2,13 +2,13 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 export type Car = {
   name: string;
-  costs: number;
-  id: number;
+  cost: number;
+  id?: string;
 };
 
 const initialState = {
   name: "",
-  costs: 0,
+  cost: 0,
 };
 
 const formSlice = createSlice({
@@ -19,7 +19,7 @@ const formSlice = createSlice({
       state.name = action.payload;
     },
     changeCost(state, action: PayloadAction<number>) {
-      state.costs = action.payload;
+      state.cost = action.payload;
     },
   },
 });
