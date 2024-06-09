@@ -1,4 +1,5 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { addCar } from "./CarsSlice";
 
 export type Car = {
   name: string;
@@ -21,6 +22,12 @@ const formSlice = createSlice({
     changeCost(state, action: PayloadAction<number>) {
       state.cost = action.payload;
     },
+  },
+  extraReducers(builder) {
+    builder.addCase(addCar, (state) => {
+      state.name = "";
+      state.cost = 0;
+    });
   },
 });
 
