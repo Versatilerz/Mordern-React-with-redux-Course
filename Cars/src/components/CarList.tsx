@@ -3,8 +3,12 @@ import { useAppDispatch, useAppSelector } from "../store/hooks";
 import { Car } from "../store/slices/formSlice";
 
 const CarList = () => {
-  const { data } = useAppSelector((state) => state.cars);
   const dispatch = useAppDispatch();
+  const data = useAppSelector(({ cars: { data, searchTerm } }) => {
+    return data.filter((car) =>
+      car.name.toLocaleLowerCase().includes(searchTerm.toLowerCase())
+    );
+  });
 
   const handleCarDelete = (car: Car) => {
     dispatch(removeCar(car.id || ""));
