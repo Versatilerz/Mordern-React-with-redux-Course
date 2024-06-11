@@ -4,19 +4,28 @@ import { Car } from "../store/slices/formSlice";
 
 const CarList = () => {
   const dispatch = useAppDispatch();
-  const data = useAppSelector(({ cars: { data, searchTerm } }) => {
-    return data.filter((car) =>
-      car.name.toLocaleLowerCase().includes(searchTerm.toLowerCase())
-    );
-  });
+  const { cars, name } = useAppSelector(
+    ({ form, cars: { data, searchTerm } }) => {
+      const filteredCars = data.filter((car) =>
+        car.name.toLocaleLowerCase().includes(searchTerm.toLowerCase())
+      );
+
+      return {
+        cars: filteredCars,
+        name: form.name,
+      };
+    }
+  );
 
   const handleCarDelete = (car: Car) => {
     dispatch(removeCar(car.id || ""));
   };
 
-  const renderedCars = data.map((car) => {
+  const renderedCars = cars.map((car) => {
+    const bold = name && car.name.toLowerCase().includes(name.toLowerCase());
+
     return (
-      <div key={car.id} className="panel">
+      <div key={car.id} className={`panel ${bold && "bold"}`}>
         <p>
           {car.name} - ${car.cost}
         </p>
