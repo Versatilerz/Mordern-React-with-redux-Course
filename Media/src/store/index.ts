@@ -8,3 +8,6 @@ export const store = configureStore({
 // typescript setup for useDispatch and useSelector
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
+
+// find everything thats exported from * and export it from index.ts aswell
+export * from "./thunks/fetchUsers";

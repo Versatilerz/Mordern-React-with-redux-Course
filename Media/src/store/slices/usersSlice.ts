@@ -1,10 +1,10 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { SerializedError, createSlice } from "@reduxjs/toolkit";
 import { fetchUsers } from "../thunks/fetchUsers";
 
 type Users = {
   data: [];
   isLoading: boolean;
-  error: null | Error;
+  error: null | SerializedError;
 };
 
 const initialState: Users = {
@@ -20,14 +20,15 @@ const usersSlice = createSlice({
   extraReducers(builder) {
     builder.addCase(fetchUsers.pending, (state) => {
       state.isLoading = true;
+      state.error = null;
     });
     builder.addCase(fetchUsers.fulfilled, (state, action) => {
       state.isLoading = false;
       state.data = action.payload;
     });
-    builder.addCase(fetchUsers.rejected, (state) => {
+    builder.addCase(fetchUsers.rejected, (state, action) => {
       state.isLoading = false;
-      state.error = state.error;
+      state.error = action.error as SerializedError;
     });
   },
 });
