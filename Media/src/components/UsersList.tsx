@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
 import { fetchUsers } from "../store";
+import Skeleton from "./Skeleton";
 
 const UsersList = () => {
   const dispatch = useAppDispatch();
@@ -11,7 +12,7 @@ const UsersList = () => {
   }, []);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <Skeleton times={6} className="h-10 w-full" />;
   }
 
   if (error) {
