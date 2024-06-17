@@ -3,6 +3,11 @@ import { useAppDispatch, useAppSelector } from "../store/hooks";
 import { fetchUsers } from "../store";
 import Skeleton from "./Skeleton";
 
+type Data = {
+  id: number;
+  name: string;
+};
+
 const UsersList = () => {
   const dispatch = useAppDispatch();
   const { isLoading, data, error } = useAppSelector((state) => state.users);
@@ -19,6 +24,16 @@ const UsersList = () => {
     return <div>Error fetching data...</div>;
   }
 
-  return <div>{data.length}</div>;
+  const renderedUsers = data.map((user) => {
+    return (
+      <div key={user.id} className="mb-2 border rounded">
+        <div className="flex p-2 justify-between items-center cursor-pointer">
+          {user.name}
+        </div>
+      </div>
+    );
+  });
+
+  return <div>{renderedUsers}</div>;
 };
 export default UsersList;

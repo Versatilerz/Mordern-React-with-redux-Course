@@ -1,8 +1,13 @@
 import { SerializedError, createSlice } from "@reduxjs/toolkit";
 import { fetchUsers } from "../thunks/fetchUsers";
 
+type User = {
+  id: string;
+  name: string;
+};
+
 type Users = {
-  data: [];
+  data: User[];
   isLoading: boolean;
   error: null | SerializedError;
 };
