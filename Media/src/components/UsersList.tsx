@@ -3,11 +3,6 @@ import { useAppDispatch, useAppSelector } from "../store/hooks";
 import { fetchUsers } from "../store";
 import Skeleton from "./Skeleton";
 
-type Data = {
-  id: number;
-  name: string;
-};
-
 const UsersList = () => {
   const dispatch = useAppDispatch();
   const { isLoading, data, error } = useAppSelector((state) => state.users);
