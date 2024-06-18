@@ -11,3 +11,4 @@ export type AppDispatch = typeof store.dispatch;
 
 // find everything thats exported from * and export it from index.ts aswell
 export * from "./thunks/fetchUsers";
+export * from "./thunks/addUser";
