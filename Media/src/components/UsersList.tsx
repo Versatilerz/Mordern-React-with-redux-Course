@@ -1,26 +1,34 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
 import { fetchUsers, addUser } from "../store";
 import Skeleton from "./Skeleton";
 import Button from "./Button";
 
 const UsersList = () => {
+  const [isLoadingUsers, setIsLoadingUsers] = useState(false);
+  const [loadingUsersError, setLoadingUsersError] = useState(null);
   const dispatch = useAppDispatch();
-  const { isLoading, data, error } = useAppSelector((state) => state.users);
+  const { data } = useAppSelector((state) => state.users);
 
   useEffect(() => {
-    dispatch(fetchUsers());
+    setIsLoadingUsers(true);
+    // unwrap is to make sure .then.catch works in the regular promise way.. if you dont use unwrap it always call .then on fulfilled or rejected.
+    dispatch(fetchUsers())
+      .unwrap()
+      .then(() => {})
+      .catch((error) => setLoadingUsersError(error))
+      .finally(() => setIsLoadingUsers(false));
   }, []);
 
   const handleUserAdd = () => {
     dispatch(addUser());
   };
 
-  if (isLoading) {
+  if (isLoadingUsers) {
     return <Skeleton times={6} className="h-10 w-full" />;
   }
 
-  if (error) {
+  if (loadingUsersError) {
     return <div>Error fetching data...</div>;
   }
 
