@@ -12,7 +12,7 @@ type ButtonProps = {
   warning?: boolean;
   danger?: boolean;
   children?: React.ReactNode;
-  loading: boolean;
+  loading?: boolean;
   [key: string]: any;
 };
 

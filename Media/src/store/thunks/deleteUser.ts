@@ -9,6 +9,6 @@ export const deleteUser = createAsyncThunk(
       `http://localhost:3005/users/${user.id}`
     );
 
-    return response.data;
+    return user;
   }
 );

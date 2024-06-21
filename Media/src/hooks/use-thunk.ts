@@ -1,18 +1,26 @@
 import { useCallback, useState } from "react";
 import { useAppDispatch } from "../store/hooks";
+import { User } from "../store/slices/usersSlice";
+
+// type ThunkProps = {
+//   arg?: User;
+// };
 
 const useThunk = (thunk: any) => {
   const [isLoading, setIsloading] = useState(false);
   const [error, setError] = useState(null);
   const dispatch = useAppDispatch();
 
-  const runThunk = useCallback(() => {
-    setIsloading(true);
-    dispatch(thunk())
-      .unwrap()
-      .catch((err: any) => setError(err))
-      .finally(() => setIsloading(false));
-  }, [dispatch, thunk]);
+  const runThunk = useCallback(
+    (arg?: User) => {
+      setIsloading(true);
+      dispatch(thunk(arg))
+        .unwrap()
+        .catch((err: any) => setError(err))
+        .finally(() => setIsloading(false));
+    },
+    [dispatch, thunk]
+  );
 
   return [runThunk, isLoading, error] as const;
 };
