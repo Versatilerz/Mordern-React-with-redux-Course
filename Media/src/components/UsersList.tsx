@@ -1,34 +1,22 @@
-import { useEffect, useState } from "react";
-import { useAppDispatch, useAppSelector } from "../store/hooks";
+import { useEffect } from "react";
+import { useAppSelector } from "../store/hooks";
 import { fetchUsers, addUser } from "../store";
 import Skeleton from "./Skeleton";
 import Button from "./Button";
+import useThunk from "../hooks/use-thunk";
 
 const UsersList = () => {
-  const [isLoadingUsers, setIsLoadingUsers] = useState(false);
-  const [loadingUsersError, setLoadingUsersError] = useState(null);
-  const [isCreatingUser, setIsCreatingUser] = useState(false);
-  const [creatingUserError, setCreatingUserError] = useState(null);
-  const dispatch = useAppDispatch();
+  const [doFetchUsers, isLoadingUsers, loadingUsersError] =
+    useThunk(fetchUsers);
+  const [doCreateUser, isCreatingUser, creatingUserError] = useThunk(addUser);
   const { data } = useAppSelector((state) => state.users);
 
   useEffect(() => {
-    setIsLoadingUsers(true);
-    // unwrap is to make sure .then.catch works in the regular promise way.. if you dont use unwrap it always call .then on fulfilled or rejected.
-    dispatch(fetchUsers())
-      .unwrap()
-      .then(() => {})
-      .catch((error) => setLoadingUsersError(error))
-      .finally(() => setIsLoadingUsers(false));
-  }, []);
+    doFetchUsers();
+  }, [doFetchUsers]);
 
   const handleUserAdd = () => {
-    setIsCreatingUser(true);
-    dispatch(addUser())
-      .unwrap()
-      .then(() => {})
-      .catch((error) => setCreatingUserError(error))
-      .finally(() => setIsCreatingUser(false));
+    doCreateUser();
   };
 
   if (isLoadingUsers) {
@@ -53,11 +41,9 @@ const UsersList = () => {
     <div>
       <div className="flex flex-row justify-between m-3">
         <h1 className="m-2 text-xl">Users</h1>
-        {isCreatingUser ? (
-          "Creating user... "
-        ) : (
-          <Button onClick={handleUserAdd}>+ Add User</Button>
-        )}
+        <Button loading={isCreatingUser} onClick={handleUserAdd}>
+          + Add User
+        </Button>
         {creatingUserError && "Error creating user"}
       </div>
       {renderedUsers}

@@ -1,20 +1,23 @@
 import className from "classnames";
 import { twMerge } from "tailwind-merge";
+import { GoSync } from "react-icons/go";
 
 type ButtonProps = {
-  rounded?: Boolean;
-  outline?: Boolean;
+  rounded?: boolean;
+  outline?: boolean;
   //   purpose?: string;
-  primary?: Boolean;
-  secondary?: Boolean;
-  succes?: Boolean;
-  warning?: Boolean;
-  danger?: Boolean;
+  primary?: boolean;
+  secondary?: boolean;
+  succes?: boolean;
+  warning?: boolean;
+  danger?: boolean;
   children?: React.ReactNode;
+  loading: boolean;
   [key: string]: any;
 };
 
 const Button: React.FC<ButtonProps> = ({
+  loading,
   rounded,
   outline,
   children,
@@ -41,25 +44,30 @@ const Button: React.FC<ButtonProps> = ({
   validateProps();
 
   const classes = twMerge(
-    className(rest.className, "flex items-center px-3 py-1.5  border w-40", {
-      "border-blue-500 bg-blue-500 text-white": primary,
-      "border-gray-900 bg-gray-900 text-white": secondary,
-      "border-green-500 bg-green-500 text-white": succes,
-      "border-yellow-400 bg-yellow-400 text-white": warning,
-      "border-red-500 bg-red-500 text-white": danger,
-      "rounded-full": rounded,
-      "bg-white": outline,
-      "text-blue-500": outline && primary,
-      "text-gray-900": outline && secondary,
-      "text-green-500": outline && succes,
-      "text-yellow-400": outline && warning,
-      "text-red-500": danger && outline,
-    })
+    className(
+      rest.className,
+      "flex items-center px-3 py-1.5  border w-40 h-8",
+      {
+        "opacity-80": loading,
+        "border-blue-500 bg-blue-500 text-white": primary,
+        "border-gray-900 bg-gray-900 text-white": secondary,
+        "border-green-500 bg-green-500 text-white": succes,
+        "border-yellow-400 bg-yellow-400 text-white": warning,
+        "border-red-500 bg-red-500 text-white": danger,
+        "rounded-full": rounded,
+        "bg-white": outline,
+        "text-blue-500": outline && primary,
+        "text-gray-900": outline && secondary,
+        "text-green-500": outline && succes,
+        "text-yellow-400": outline && warning,
+        "text-red-500": danger && outline,
+      }
+    )
   );
 
   return (
-    <button {...rest} className={classes}>
-      {children}
+    <button {...rest} disabled={loading} className={classes}>
+      {loading ? <GoSync className="animate-spin" /> : children}
     </button>
   );
 };
