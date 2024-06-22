@@ -5,9 +5,7 @@ import { User } from "../slices/usersSlice";
 export const deleteUser = createAsyncThunk(
   "users/delete",
   async (user: User) => {
-    const response = await axios.delete(
-      `http://localhost:3005/users/${user.id}`
-    );
+    await axios.delete(`http://localhost:3005/users/${user.id}`);
 
     return user;
   }
