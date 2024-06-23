@@ -4,6 +4,7 @@ import { User } from "../store/slices/usersSlice";
 import { GoTrashcan } from "react-icons/go";
 import Button from "./Button";
 import ExpendablePanel from "./ExpandablePanel";
+import AlbumsList from "./AlbumsList";
 
 type Props = {
   user: User;
@@ -26,7 +27,11 @@ const UsersListItem: React.FC<Props> = ({ user }) => {
     </>
   );
 
-  return <ExpendablePanel header={header}>Content</ExpendablePanel>;
+  return (
+    <ExpendablePanel header={header}>
+      <AlbumsList user={user} />
+    </ExpendablePanel>
+  );
 };
 
 export default UsersListItem;
