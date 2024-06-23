@@ -1,4 +1,4 @@
-import { useFetchAlbumsQuery } from "../store";
+import { useAddAlbumMutation, useFetchAlbumsQuery } from "../store";
 import { User } from "../store/slices/usersSlice";
 import Skeleton from "./Skeleton";
 import ExpendablePanel from "./ExpandablePanel";
@@ -16,6 +16,11 @@ type Album = {
 
 const AlbumsList: React.FC<Props> = ({ user }) => {
   const { data, error, isLoading } = useFetchAlbumsQuery(user);
+  const [addAlbum, results] = useAddAlbumMutation();
+
+  const handleAddAlbum = () => {
+    addAlbum(user);
+  };
 
   let content;
   if (isLoading) {
@@ -35,7 +40,10 @@ const AlbumsList: React.FC<Props> = ({ user }) => {
 
   return (
     <div>
-      <div>Albums for {user.name}</div>
+      <div>
+        Albums for {user.name}
+        <Button onClick={handleAddAlbum}>+ Add Album</Button>
+      </div>
       <div>{content}</div>
     </div>
   );
