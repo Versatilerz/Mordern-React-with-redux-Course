@@ -2,10 +2,6 @@ import { useCallback, useState } from "react";
 import { useAppDispatch } from "../store/hooks";
 import { User } from "../store/slices/usersSlice";
 
-// type ThunkProps = {
-//   arg?: User;
-// };
-
 const useThunk = (thunk: any) => {
   const [isLoading, setIsloading] = useState(false);
   const [error, setError] = useState(null);

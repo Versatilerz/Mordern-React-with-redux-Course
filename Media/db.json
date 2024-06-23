@@ -11,8 +11,18 @@
     {
       "id": "f74a",
       "name": "Harvey Homenick"
+    },
+    {
+      "id": "66a7",
+      "name": "Armando Borer"
     }
   ],
-  "albums": [],
+  "albums": [
+    {
+      "id": 12,
+      "title": "test",
+      "userId": "eada"
+    }
+  ],
   "photos": []
 }

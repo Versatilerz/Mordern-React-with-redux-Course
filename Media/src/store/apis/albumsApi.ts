@@ -1,14 +1,15 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { User } from "../slices/usersSlice";
 
 const albumsApi = createApi({
   reducerPath: "albums",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:3005/users",
+    baseUrl: "http://localhost:3005",
   }),
   endpoints(builder) {
     return {
       fetchAlbums: builder.query({
-        query: (user) => {
+        query: (user: User) => {
           return {
             url: "/albums",
             params: {
