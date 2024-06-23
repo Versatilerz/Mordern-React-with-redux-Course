@@ -2,7 +2,7 @@ import classNames from "classnames";
 
 type Props = {
   times: number;
-  className: string;
+  className?: string;
 };
 
 const Skeleton: React.FC<Props> = ({ times, className }) => {
